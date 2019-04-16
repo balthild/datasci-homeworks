@@ -1,4 +1,5 @@
 import os
+from typing import List
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -24,7 +25,7 @@ for cl in ['三5', '三8', '三9']:
     os.makedirs(f'graphs/{cl}', exist_ok=True)
 
     data: DataFrame = read_csv(f'{cl}.csv')
-    avg_list: list = []
+    avg_list: List[float] = []
 
     for row in data.iterrows():
         series = row[1]
@@ -50,7 +51,7 @@ for cl in ['三5', '三8', '三9']:
     avg.sort()
 
     split_at = avg.searchsorted(range(10, 91, 10))
-    intervals: np.ndarray = np.split(avg, split_at)
+    intervals: List[np.ndarray] = np.split(avg, split_at)
 
     r = plt.bar([f'{x}+' for x in range(0, 91, 10)], [y.size for y in intervals])
     autolabel(r)
